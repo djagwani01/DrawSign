@@ -21,11 +21,17 @@ const styles = () =>
                 position: 'relative',
                 left: 2,
             },
+            '& .active': {
+                textShadow: '1px 2px 5px black',
+            },
         },
         tabIcon: {
             color: 'rgba(195, 6, 153, 1)',
             width: 18,
             height: 17,
+        },
+        link: {
+            textDecoration: 'none',
         },
     }) as const
 

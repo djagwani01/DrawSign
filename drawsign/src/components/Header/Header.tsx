@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons'
 import styles from './styles'
 import { HeaderProps } from './types'
+import { NavLink, useLocation } from 'react-router-dom'
 
 const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
     const classes = styles()
+    const location = useLocation()
+
     return (
         <div className={classes.headerWrapper}>
             <Box
@@ -48,7 +51,8 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                     container
                     sx={{
                         display: 'flex',
-                        width: 500,
+                        justifyContent: 'center',
+                        width: 600,
                         height: 'inherit',
                         alignItems: 'center',
                     }}
@@ -59,74 +63,57 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                                 key={tab.id}
                                 container
                                 item
-                                xs={4}
+                                xs={3.5}
                                 sx={{
                                     cursor: 'pointer',
+                                    height: 'inherit',
+                                    ...(location.pathname === tab.navigate && {
+                                        backgroundColor:
+                                            'rgba(255, 255, 255, 0.2)',
+                                    }),
+                                    ...(location.pathname === tab.navigate && {
+                                        borderRight:
+                                            '1px solid rgba(150, 150, 150, 1)',
+                                    }),
                                 }}
                                 className={classes.gridItems}
                             >
                                 <Grid
                                     item
-                                    xs={3}
+                                    xs={1}
                                     mt={0.2}
                                     className={classes.gridItems}
                                 >
-                                    <FontAwesomeIcon
-                                        icon={tab.icon}
-                                        className={classes.tabIcon}
-                                    />
-                                </Grid>
-                                <Grid item xs={5} className={classes.gridItems}>
-                                    <Typography
-                                        sx={{
-                                            color: 'rgba(255, 255, 255, 1)',
-                                            fontSize: 21,
-                                            fontWeight: 'bold',
-                                        }}
+                                    <NavLink
+                                        to={tab.navigate}
+                                        className={classes.link}
                                     >
-                                        {tab.title}
-                                    </Typography>
+                                        <FontAwesomeIcon
+                                            icon={tab.icon}
+                                            className={classes.tabIcon}
+                                        />
+                                    </NavLink>
+                                </Grid>
+                                <Grid item xs={7} className={classes.gridItems}>
+                                    <NavLink
+                                        to={tab.navigate}
+                                        className={classes.link}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 1)',
+                                                fontSize: 21,
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            {tab.title}
+                                        </Typography>
+                                    </NavLink>
                                 </Grid>
                             </Grid>
                         )
                     })}
                 </Grid>
-                {/* <Grid container item xs={5} className={classes.gridItems}>
-                        <Grid
-                            item
-                            xs={3}
-                            mt={0.2}
-                            className={classes.gridItems}
-                        >
-                            <FontAwesomeIcon
-                                icon={faPenNib}
-                                className={classes.tabIcon}
-                            />
-                        </Grid>
-                        <Grid item xs={5} className={classes.gridItems}>
-                            <Typography
-                                sx={{
-                                    color: 'rgba(255, 255, 255, 1)',
-                                    fontSize: 21,
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                SignPad
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container item xs={5} className={classes.gridItems}>
-                        <Typography
-                            sx={{
-                                color: 'rgba(255, 255, 255, 1)',
-                                fontSize: 20,
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Manage
-                        </Typography>
-                    </Grid>
-                </Grid> */}
             </Box>
         </div>
     )

@@ -4,6 +4,7 @@ export interface Tab {
     id: string
     title: string
     icon: IconDefinition
+    navigate: string
 }
 
 export interface HeaderProps {
