@@ -36,13 +36,7 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                         <FontAwesomeIcon icon={faCircleHalfStroke} />
                     </Grid>
                     <Grid item xs={4} className={classes.gridItems}>
-                        <Typography
-                            sx={{
-                                color: 'rgba(255, 255, 255, 1)',
-                                fontSize: 24,
-                                fontWeight: 'bold',
-                            }}
-                        >
+                        <Typography sx={{ fontSize: 24 }}>
                             {defaultTitle}
                         </Typography>
                     </Grid>
@@ -99,13 +93,7 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                                         to={tab.navigate}
                                         className={classes.link}
                                     >
-                                        <Typography
-                                            sx={{
-                                                color: 'rgba(255, 255, 255, 1)',
-                                                fontSize: 21,
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
+                                        <Typography sx={{ fontSize: 21 }}>
                                             {tab.title}
                                         </Typography>
                                     </NavLink>

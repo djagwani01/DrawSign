@@ -17,6 +17,10 @@ const styles = () =>
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            '& .MuiTypography-root': {
+                color: 'rgba(255, 255, 255, 1)',
+                fontWeight: 'bold',
+            },
             '& .fa-gear': {
                 position: 'relative',
                 left: 2,
@@ -32,6 +36,9 @@ const styles = () =>
         },
         link: {
             textDecoration: 'none',
+            '& :hover': {
+                color: 'rgba(230, 230, 230, 1)',
+            },
         },
     }) as const
 
