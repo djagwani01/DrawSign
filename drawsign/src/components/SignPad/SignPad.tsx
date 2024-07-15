@@ -1,29 +1,45 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react'
+import React, {
+    Dispatch,
+    MouseEvent,
+    SetStateAction,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import styles from './styles'
 import { Box, Grid } from '@mui/material'
 import DSButton from '../Button/Button'
+import { openSnackBar } from '../Snackbar/Snackbar'
+import { ManageDataTypes } from '../../hooks/useManageData'
 
-const SignPad = () => {
+interface SignPadProps {
+    data: {
+        setImgUrl: Dispatch<SetStateAction<string>>
+        manageData: Array<ManageDataTypes>
+        setManageData: Dispatch<SetStateAction<Array<ManageDataTypes>>>
+    }
+}
+
+const SignPad = ({ data }: SignPadProps) => {
+    const { setImgUrl, manageData } = data
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const canvasContext = useRef<CanvasRenderingContext2D | null>(null)
     const [isDrawing, setIsDrawing] = useState<boolean>(false)
     const [clearPlaceHolder, setClearPlaceHolder] = useState<boolean>(false)
-
     const classes = styles()
 
     useEffect(() => {
         const canvas = canvasRef.current
         if (canvas) {
-            canvas.width = 500
-            canvas.height = 400
+            canvas.width = 550
+            canvas.height = 380
 
             const context = canvas.getContext('2d')
             if (context) {
                 context.lineCap = 'round'
                 context.strokeStyle = 'black'
-                context.lineWidth = 1
+                context.lineWidth = 3
                 canvasContext.current = context
-                console.log({ context: canvasContext.current })
             }
         }
     }, [])
@@ -72,6 +88,31 @@ const SignPad = () => {
         }
     }
 
+    const handleSave = () => {
+        if (canvasRef && canvasRef.current) {
+            setImgUrl(canvasRef?.current?.toDataURL())
+        }
+        openSnackBar({
+            message:
+                manageData.length === 5
+                    ? 'You cannot add more than 5 signatures. Please delete a signature to add a new one.'
+                    : 'Signature saved successfully',
+            type: manageData.length === 5 ? 'error' : 'success',
+            customAnchor: {
+                horizontal: manageData.length === 5 ? 'center' : 'right',
+                vertical: 'top',
+            },
+        })
+        handleClear()
+    }
+
+    const handleClear = () => {
+        if (canvasContext && canvasContext.current) {
+            canvasContext.current.clearRect(0, 0, 600, 400)
+            setClearPlaceHolder(false)
+        }
+    }
+
     return (
         <Box
             sx={{
@@ -80,7 +121,7 @@ const SignPad = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
-                margin: '50px 0',
+                margin: '90px 0',
             }}
         >
             <Grid container className={classes.canvasContainer}>
@@ -102,10 +143,10 @@ const SignPad = () => {
                 }}
             >
                 <Grid item xs={3}>
-                    <DSButton label="SAVE" />
+                    <DSButton label="SAVE" handleClick={handleSave} />
                 </Grid>
                 <Grid item xs={2.5}>
-                    <DSButton label="CLEAR" />
+                    <DSButton label="CLEAR" handleClick={handleClear} />
                 </Grid>
             </Grid>
         </Box>
