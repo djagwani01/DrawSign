@@ -5,6 +5,7 @@ import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons'
 import styles from './styles'
 import { HeaderProps } from './types'
 import { NavLink, useLocation } from 'react-router-dom'
+import { SIGN_PAD } from '../../Routes'
 
 const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
     const classes = styles()
@@ -65,10 +66,15 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                                         backgroundColor:
                                             'rgba(255, 255, 255, 0.2)',
                                     }),
-                                    ...(location.pathname === tab.navigate && {
-                                        borderRight:
-                                            '1px solid rgba(150, 150, 150, 1)',
-                                    }),
+                                    ...(tab.navigate === SIGN_PAD
+                                        ? {
+                                              borderRight:
+                                                  '1px solid rgba(150, 150, 150, 1)',
+                                          }
+                                        : {
+                                              borderLeft:
+                                                  '1px solid rgba(150, 150, 150, 1)',
+                                          }),
                                 }}
                                 className={classes.gridItems}
                             >

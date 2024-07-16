@@ -89,6 +89,9 @@ const SignPad = ({ data }: SignPadProps) => {
     }
 
     const handleSave = () => {
+        if (!clearPlaceHolder) {
+            return
+        }
         if (canvasRef && canvasRef.current) {
             setImgUrl(canvasRef?.current?.toDataURL())
         }
@@ -107,6 +110,9 @@ const SignPad = ({ data }: SignPadProps) => {
     }
 
     const handleClear = () => {
+        if (!clearPlaceHolder) {
+            return
+        }
         if (canvasContext && canvasContext.current) {
             canvasContext.current.clearRect(0, 0, 600, 400)
             setClearPlaceHolder(false)

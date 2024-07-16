@@ -33,6 +33,7 @@ const styles = () =>
                 height: 23,
                 position: 'relative',
                 bottom: 2,
+                cursor: 'pointer',
             },
         },
         gridItemsWithImage: {
