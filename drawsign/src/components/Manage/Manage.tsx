@@ -10,6 +10,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ManageDataTypes } from '../../hooks/useManageData'
+import { useNavigate } from 'react-router-dom'
+import { openSnackBar } from '../Snackbar/Snackbar'
 
 interface ManageProps {
     data: {
@@ -22,18 +24,58 @@ interface ManageProps {
 const Manage = ({ data }: ManageProps) => {
     const classes = styles()
     const { manageData, setManageData } = data
+    const navigate = useNavigate()
 
     const handleStarred = (e: MouseEvent<SVGSVGElement>) => {
-        setManageData(manageData.map(data => {
-            return String(data.id) === e.currentTarget.id ? {...data, starred: true} : {...data, starred: false}
-        }))
+        setManageData(
+            manageData.map((data) => {
+                return String(data.id) === e.currentTarget.id
+                    ? { ...data, starred: true }
+                    : { ...data, starred: false }
+            })
+        )
+    }
+
+    const handleDelete = (e: MouseEvent<SVGSVGElement>) => {
+        manageData.forEach(
+            (data) =>
+                data.starred &&
+                String(data.id) === e.currentTarget.id &&
+                openSnackBar({
+                    message: 'Starred item cannot be deleted',
+                    type: 'error',
+                    customAnchor: {
+                        horizontal: 'right',
+                        vertical: 'top',
+                    },
+                })
+        )
+        setManageData(
+            manageData.filter((data) =>
+                data.starred ? data : String(data.id) !== e.currentTarget.id
+            )
+        )
+    }
+
+    const handleAddSignature = () => {
+        manageData.length === 5
+            ? openSnackBar({
+                  message:
+                      'You cannot add more than 5 signatures. Please delete a signature to add a new one.',
+                  type: 'error',
+                  customAnchor: {
+                      horizontal: 'center',
+                      vertical: 'top',
+                  },
+              })
+            : navigate('/')
     }
 
     return (
         <div className={classes.manageWrapper}>
             <Box
                 sx={{
-                    width: '50%',
+                    width: '45%',
                     height: '70%',
                     border: '2.5px solid rgba(128, 128, 128, 0.8)',
                     margin: '90px 150px',
@@ -65,11 +107,45 @@ const Manage = ({ data }: ManageProps) => {
                             <DSButton
                                 label="Add"
                                 icon={faCirclePlus}
-                                handleClick={() => {}}
+                                handleClick={handleAddSignature}
                             />
                         </Grid>
                     </Grid>
                 </Box>
+                {!manageData.length && (
+                    <Box
+                        sx={{
+                            width: '80%',
+                            height: 100,
+                            margin: '50px auto',
+                        }}
+                    >
+                        <Grid
+                            sx={{
+                                width: '100%',
+                                height: '100%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontSize: 23,
+                                    fontWeight: 600,
+                                    textAlign: 'center',
+                                    color: 'rgba(300, 0, 0, 0.9)',
+                                    textShadow:
+                                        '1px 1px 5px rgba(200, 200, 200, 0.5)',
+                                }}
+                            >
+                                You have no signatures added. Please add a
+                                signature to manage.
+                            </Typography>
+                        </Grid>
+                    </Box>
+                )}
                 <Grid
                     container
                     sx={{
@@ -85,7 +161,7 @@ const Manage = ({ data }: ManageProps) => {
                                 item
                                 sx={{
                                     width: '100%',
-                                    height: 60,
+                                    height: 63,
                                     display: 'flex',
                                     flexDirection: 'column',
                                 }}
@@ -102,15 +178,6 @@ const Manage = ({ data }: ManageProps) => {
                                         className={
                                             classes.gridItemsWithoutImage
                                         }
-                                        xs={2}
-                                    >
-                                        {item.id}.
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        className={
-                                            classes.gridItemsWithoutImage
-                                        }
                                         xs={6}
                                         sx={{
                                             ...(item.starred && {
@@ -120,7 +187,11 @@ const Manage = ({ data }: ManageProps) => {
                                             }),
                                         }}
                                     >
-                                        <FontAwesomeIcon icon={faStar} id={String(item.id)} onClick={handleStarred} />
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            id={String(item.id)}
+                                            onClick={handleStarred}
+                                        />
                                     </Grid>
                                 </Grid>
                                 <Grid
@@ -132,7 +203,7 @@ const Manage = ({ data }: ManageProps) => {
                                         justifyContent: 'space-around',
                                         alignItems: 'center',
                                         position: 'relative',
-                                        bottom: 20,
+                                        bottom: 40,
                                     }}
                                 >
                                     <Grid
@@ -142,7 +213,7 @@ const Manage = ({ data }: ManageProps) => {
                                     >
                                         <img
                                             width={300}
-                                            height={60}
+                                            height={100}
                                             src={item.url}
                                         />
                                     </Grid>
@@ -151,7 +222,11 @@ const Manage = ({ data }: ManageProps) => {
                                         className={classes.gridItemsWithImage}
                                         xs={6}
                                     >
-                                        <FontAwesomeIcon icon={faTrashCan} />
+                                        <FontAwesomeIcon
+                                            icon={faTrashCan}
+                                            id={String(item.id)}
+                                            onClick={handleDelete}
+                                        />
                                     </Grid>
                                 </Grid>
                             </Grid>

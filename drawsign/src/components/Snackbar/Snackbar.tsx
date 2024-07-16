@@ -48,7 +48,7 @@ const SnackBar = () => {
         <Snackbar
             open={open}
             anchorOrigin={customAnchor}
-            autoHideDuration={2000}
+            autoHideDuration={3000}
             onClose={() => setOpen(false)}
             sx={{
                 zIndex: 99,
@@ -75,9 +75,9 @@ const SnackBar = () => {
                     height: 'inherit',
                     backgroundColor:
                         type === 'success'
-                            ? 'rgba(0, 128, 20, 0.9)'
-                            : 'rgba(170, 0, 0, 0.9)',
-                    boxShadow: '2px 2px 5px rgba(0, 0, 0, 1)',
+                            ? 'rgba(0, 170, 20, 0.9)'
+                            : 'rgba(210, 0, 0, 0.8)',
+                    boxShadow: '1px 1px 5px rgba(0, 0, 0, 1)',
                     color: 'rgba(255, 255, 255, 1)',
                     fontSize: 20,
                     fontWeight: 600,

@@ -7,6 +7,7 @@ import SignPad from './components/SignPad/SignPad'
 import Manage from './components/Manage/Manage'
 import useManageData, { ManageDataTypes } from './hooks/useManageData'
 import SnackBar from './components/Snackbar/Snackbar'
+import { MANAGE, SIGN_PAD } from './Routes'
 
 export interface MainContextTypes {
     setImgUrl: Dispatch<SetStateAction<string>>
@@ -26,7 +27,7 @@ const App = () => {
             <SnackBar />
             <Routes>
                 <Route
-                    path="/"
+                    path={SIGN_PAD}
                     element={
                         <SignPad
                             data={{ setImgUrl, manageData, setManageData }}
@@ -34,7 +35,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/manage"
+                    path={MANAGE}
                     element={
                         <Manage
                             data={{ setImgUrl, manageData, setManageData }}
