@@ -53,8 +53,8 @@ const SnackBar = () => {
             sx={{
                 zIndex: 99,
                 width: 'max-content',
-                height: 45,
-                margin: '90px 17px',
+                height: 40,
+                margin: '95px 17px',
             }}
         >
             <SnackbarContent
@@ -79,7 +79,7 @@ const SnackBar = () => {
                             : 'rgba(210, 0, 0, 0.8)',
                     boxShadow: '1px 1px 5px rgba(0, 0, 0, 1)',
                     color: 'rgba(255, 255, 255, 1)',
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: 600,
                     display: 'flex',
                     justifyContent: 'center',

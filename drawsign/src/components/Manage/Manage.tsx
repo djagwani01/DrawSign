@@ -30,7 +30,7 @@ const Manage = ({ data }: ManageProps) => {
         setManageData(
             manageData.map((data) => {
                 return String(data.id) === e.currentTarget.id
-                    ? { ...data, starred: true }
+                    ? { ...data, starred: !data.starred }
                     : { ...data, starred: false }
             })
         )
