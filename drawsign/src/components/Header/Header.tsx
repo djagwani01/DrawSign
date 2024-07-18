@@ -19,7 +19,7 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                     justifyContent: 'space-between',
                     width: '95%',
                     height: 70,
-                    backgroundColor: 'rgba(30, 30, 30, 1)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
                     borderRadius: 2,
                 }}
             >
@@ -47,7 +47,7 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        width: 600,
+                        width: 700,
                         height: 'inherit',
                         alignItems: 'center',
                     }}
@@ -58,8 +58,12 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                                 key={tab.id}
                                 container
                                 item
-                                xs={3.5}
+                                xs={4}
                                 sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '100%',
                                     cursor: 'pointer',
                                     height: 'inherit',
                                     ...(location.pathname === tab.navigate && {
@@ -94,7 +98,7 @@ const Header = ({ defaultTitle = 'DrawSign', tabs }: HeaderProps) => {
                                         />
                                     </NavLink>
                                 </Grid>
-                                <Grid item xs={7} className={classes.gridItems}>
+                                <Grid item xs={5} className={classes.gridItems}>
                                     <NavLink
                                         to={tab.navigate}
                                         className={classes.link}

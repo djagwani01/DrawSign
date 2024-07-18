@@ -1,4 +1,4 @@
-import { faPenNib, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faPenNib, faSignature } from '@fortawesome/free-solid-svg-icons'
 import { MANAGE, SIGN_PAD } from '../../Routes'
 
 export const tabs = [
@@ -10,8 +10,8 @@ export const tabs = [
     },
     {
         id: '#icon-2',
-        title: 'Manage',
-        icon: faGear,
+        title: 'Signatures',
+        icon: faSignature,
         navigate: MANAGE,
     },
 ]
